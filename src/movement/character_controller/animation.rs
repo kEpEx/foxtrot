@@ -75,7 +75,7 @@ fn play_animations(
             TnuaAnimatingStateDirective::Maintain { state } => {
                 if let AnimationState::Running(speed) = state {
                     let anim_speed = (speed / 7.0).max(1.0);
-                    animation_player.set_speed(anim_speed);
+                    animation_player.adjust_speeds(anim_speed);
                 }
             }
             TnuaAnimatingStateDirective::Alter {
@@ -86,39 +86,60 @@ fn play_animations(
             } => match state {
                 AnimationState::Airborne | AnimationState::Running(..) => {
                     animation_player
-                        .play_with_transition(
-                            animations
-                                .named_animations
+                        .play(
+                            *animations.named_indices
                                 .get(&animation_names.aerial)
                                 .unwrap()
-                                .clone_weak(),
-                            Duration::from_secs_f32(0.2),
-                        )
-                        .repeat();
+                        ).repeat().set_speed(0.2);
+                    // animation_player
+                    //     .play_with_transition(
+                    //         animations
+                    //             .named_animations
+                    //             .get(&animation_names.aerial)
+                    //             .unwrap()
+                    //             .clone_weak(),
+                    //         Duration::from_secs_f32(0.2),
+                    //     )
+                    //     .repeat();
                 }
                 AnimationState::Standing => {
                     animation_player
-                        .play_with_transition(
-                            animations
-                                .named_animations
-                                .get(&animation_names.idle)
-                                .unwrap()
-                                .clone_weak(),
-                            Duration::from_secs_f32(0.2),
-                        )
-                        .repeat();
+                    .play(
+                        *animations.named_indices
+                            .get(&animation_names.idle)
+                            .unwrap()
+                    ).repeat().set_speed(0.2);
+
+                    // animation_player
+                    //     .play_with_transition(
+                    //         animations
+                    //             .named_animations
+                    //             .get(&animation_names.idle)
+                    //             .unwrap()
+                    //             .clone_weak(),
+                    //         Duration::from_secs_f32(0.2),
+                    //     )
+                    //     .repeat();
                 }
                 AnimationState::Walking(_speed) => {
+
                     animation_player
-                        .play_with_transition(
-                            animations
-                                .named_animations
-                                .get(&animation_names.walk)
-                                .unwrap()
-                                .clone_weak(),
-                            Duration::from_secs_f32(0.1),
-                        )
-                        .repeat();
+                    .play(
+                        *animations.named_indices
+                            .get(&animation_names.walk)
+                            .unwrap()
+                    ).repeat().set_speed(0.1);
+
+                    // animation_player
+                    //     .play_with_transition(
+                    //         animations
+                    //             .named_animations
+                    //             .get(&animation_names.walk)
+                    //             .unwrap()
+                    //             .clone_weak(),
+                    //         Duration::from_secs_f32(0.1),
+                    //     )
+                    //     .repeat();
                 }
             },
         }

@@ -2,9 +2,9 @@ use crate::{
     player_control::actions::{ActionsFrozen, UiAction},
     GameState,
 };
+use avian3d::prelude::*;
 use bevy::{app::AppExit, prelude::*};
 use bevy_egui::{egui, EguiContexts};
-use bevy_xpbd_3d::prelude::*;
 use leafwing_input_manager::prelude::ActionState;
 
 /// Handles the pause menu accessed while playing the game via ESC.
@@ -57,7 +57,7 @@ fn handle_pause(
                 ui.add_space(100.0);
 
                 if ui.button("Quit Game").clicked() {
-                    app_exit_events.send(AppExit);
+                    app_exit_events.send(AppExit::Success);
                 }
             });
         });

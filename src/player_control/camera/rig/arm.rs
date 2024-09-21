@@ -5,7 +5,7 @@ use crate::{
 };
 use bevy::prelude::*;
 use bevy_dolly::prelude::*;
-use bevy_xpbd_3d::prelude::*;
+use avian3d::prelude::*;
 
 pub(super) fn get_arm_distance(
     camera: &IngameCamera,
@@ -85,7 +85,7 @@ fn get_distance_to_collision(
 
 fn get_distance_such_that_min_distance_from_collision_is_ensured(
     hit: RayHitData,
-    direction: Direction3d,
+    direction: Dir3,
     min_distance: f32,
 ) -> f32 {
     //  Wall
